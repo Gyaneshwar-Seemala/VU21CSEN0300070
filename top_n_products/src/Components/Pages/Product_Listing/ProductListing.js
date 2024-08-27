@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import ApiClient from '../../../config/index.config'; // Adjust the import path as needed
 
 const Categories = ["Phone", "Computer", "TV", "Earphone", "Tablet", "Charger", "Mouse", "Keypad", "Bluetooth", "Pendrive", "Remote", "Speaker", "Headset", "Laptop", "PC"];
 
@@ -18,12 +18,14 @@ const Products = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
+            if (!companyName) {
+                console.error('Company name is undefined');
+                return;
+            }
+
             try {
                 const params = { ...filters };
-                const response = await axios.get(`http://20.244.56.144/test/companies/${companyName}`, {
-                    headers: {
-                        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzI0NzM5OTQxLCJpYXQiOjE3MjQ3Mzk2NDEsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjA1ZjA4N2VmLWM4OWMtNGUxYy05MWVkLTk1ZTIxNWExMGVmMSIsInN1YiI6ImdzZWVtYWxhQGdpdGFtLmluIn0sImNvbXBhbnlOYW1lIjoiQWZmb3JkbWVkIiwiY2xpZW50SUQiOiIwNWYwODdlZi1jODljLTRlMWMtOTFlZC05NWUyMTVhMTBlZjEiLCJjbGllbnRTZWNyZXQiOiJZTWtHd2JhTVBtaEdxV2Z6Iiwib3duZXJOYW1lIjoiU2VlbWFsYSBHeWFuZXNod2FyIFJhbyIsIm93bmVyRW1haWwiOiJnc2VlbWFsYUBnaXRhbS5pbiIsInJvbGxObyI6IlZVMjFDU0VOMDMwMDA3MCJ9.1-4SCKzNQwoZev55p7-Y9ZDpCeUuhegwsBeM6rZJZa0`
-                    },
+                const response = await ApiClient.get(`/test/companies/${companyName}`, {
                     params
                 });
                 setProducts(response.data);

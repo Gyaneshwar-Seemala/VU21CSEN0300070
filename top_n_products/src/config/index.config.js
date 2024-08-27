@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Replace with the API URL you provided
-const API_URL = "http://20.244.56.144/test/companies/AMZ";
+const API_URL = "http://20.244.56.144/test/companies/";
 
 const ApiClient = axios.create({
   baseURL: API_URL,

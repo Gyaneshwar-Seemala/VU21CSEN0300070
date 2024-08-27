@@ -14,7 +14,7 @@ function App() {
 
   const appRouter = createBrowserRouter([
     {
-      path: "/",
+      path: "/:companyName",
       element: <ProductLayout />,
       children: [
         {
